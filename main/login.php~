@@ -1,41 +1,41 @@
-<?php
+<?php	
    ini_set('display_errors', 'Off');
    date_default_timezone_set('Asia/Tokyo');
    session_start();
-  // if (isset($_SESSION["S_USERID"])){    //既にログインしている
-  // header("HTTP/1.1 301 Moved Permanently");
-  // header("Location: index.php");
-  // exit;
-  // }
-  // else
-if(isset($_POST['id']) && isset($_POST['password'])){//ログイン情報が入力された
-   if(! $db = new PDO("sqlite:../phrase.db")){ //
+
+   // 既にログインしている
+   if (isset($_SESSION["S_USERID"])){  
+   header("HTTP/1.1 301 Moved Permanently");
+   header("Location: index.php");
+   exit;
+   }
+
+   //ログイン情報が入力された
+   elseif(isset($_POST['id']) && isset($_POST['password'])){
+   if(! $db = new PDO("sqlite:../phrase.db")){ 
    print "<div id=warning>DB connection is failed.</div>";
    goto end;
    }
    
+   // login.phpへの入力値
    $id = $_POST['id'];
    $password = sha1($_POST['password']);
    $newid = $_POST['newid'];
    $newname = $_POST['newname'];
-   $newpass1 = $_POST['newpass1'];
-   $newpass2 = $_POST['newpass2'];
-
-   
-   $sql = "SELECT password FROM user WHERE uid = '$id';";
 
    //パスワード情報を取得
+   $sql = "SELECT password FROM user WHERE uid = '$id';";
    $stmt = $db -> prepare($sql);
    $flag = $stmt -> execute();
    $cols = $stmt->fetch(PDO::FETCH_NUM);
 
-     if($cols[0]==$password){//認証成功
-       $_SESSION = array();
-       $_SESSION["S_USERID"]=$id;
-       header("HTTP/1.1 301 Moved Permanently");
-       header("Location: index.php");
-       exit;
-     }
+   if($cols[0]==$password){//認証成功
+   $_SESSION = array();
+   $_SESSION["S_USERID"]=$id;
+  header("HTTP/1.1 301 Moved Permanently");
+   header("Location: index.php");
+   exit;
+}
      else{
        header("HTTP/1.1 301 Moved Permanently");
        header("Location: login.php?failed=true");//ログインし直し      

@@ -19,6 +19,7 @@
       font-size: 3em;
       padding: 2em 2em 5em;
       margin-top: 0em;
+           font-family:"Zapfino";
     }
  
     #gradi{
