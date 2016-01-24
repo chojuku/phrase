@@ -2,7 +2,6 @@
 ini_set('display_errors', 'Off');
 date_default_timezone_set('Asia/Tokyo');
 session_start();
-
 // 既にログインしている
 if(isset($_SESSION["S_USERID"])) {  
     header("HTTP/1.1 301 Moved Permanently");

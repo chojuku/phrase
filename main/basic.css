@@ -1,5 +1,5 @@
 body{
-    font-family: serif;
+    font-family: "Zapfino";
     height: 32em;
     positon: absolute;
     background-position: center;
@@ -9,8 +9,8 @@ body{
     position: absolute;
 }
 #center {
-    height: 25em;
-    width: 100%;
+    height: 35em;
+    width: 60em;
     background-image: url("../images/book.png");
     background-repeat: no-repeat;
     overflow:hidden;
@@ -18,21 +18,21 @@ body{
     background-position: center center;
     position:absolute;
 }
-
+table {
+    position:relative;
+    margin: 0 auto; 
+}
 #left{
-    top: 11.0em;
-    /* top: 17.5em;*/
-    width: 42%;
+    top: 15.5em;
+    width: 27em;
     z-index: 2;   
     position:absolute;
     white-space: nowrap;
 }
 #right{
-    top: 9.5em;
-    /*  top: 16.7em; */
+    top: 14em;
     left: 22em;
-    /*  right: 9%; */
-    width: 45%;
+    width: 40em;
     z-index: 2;
     position: absolute;
     white-space: nowrap;
@@ -42,9 +42,155 @@ body{
 }
 
 h1{
-    font-size: 2em;
+    font-size: 1.5em;
     color: #fff1d7;
     z-index:1;
     white-space: nowrap;
     font-family:"Zapfino";
+    position: fixed;
 }
+
+
+    .box1{
+      border:5px solid #555;
+      border-radius: 5px;
+      position: fixed;
+      top: 7em;
+      right: 5em;
+      padding:5em;
+    }
+      .box2 {
+      border:3px solid #555;
+      border-radius: 5px;
+      padding:5em;
+      margin: 5em;
+      background-color: #fcfaf5;
+    }
+
+    
+      .minibox{
+	  border:2px solid #444;
+	  border-radius: 4px;
+	  width: 4em;
+	  height: 4em;
+	  padding:1em;
+	  text-align: center;
+	 z-index:2;
+      }
+
+      .middlebox{
+	  border:2px solid #444;
+	  border-radius: 4px;
+	  height: 30em;
+	  width: 310px;
+	  left:10px;
+	  positon:relative;
+	  text-align: center;
+	  
+	 // z-index:2;
+	  word-wrap: break-word;
+	margin: 0 auto;
+      }
+      .name{
+	  top: 5em;
+	  width: 50em;
+	  left: 20em;
+	  position: fixed;
+	  font-weight: bold;
+	  
+	  }
+
+
+
+
+#tabmenu{
+    text-align: center;
+    top: 14em;
+    left:8em;
+    position: fixed;
+    padding:0px;
+    margin:0px;
+    color:#333;
+    font-size: 11px;
+    width:900px;
+  
+}
+
+#tabmenu div#tab{
+    position: absolute;
+    top:0px;
+    left:0px;
+}
+#tabmenu div#tab a{
+    border:1px solid #555;
+    border-radius: 1px;
+    width: 138px;
+    color:#fff;
+    background:#007bbb;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+   // text-align: center;
+    display: block;
+    text-decoration:none;
+}
+#tabmenu div#tab a:hover{
+    background:#007b71;
+    color:#fff;
+}
+
+div#tab_contents{
+    border:1px solid #555;
+    border-radius: 3px;
+    background:#fff1d7;
+    width:699px;
+    overflow:
+    hidden;clear:both;
+}
+
+
+div#tab_contents ul{
+    text-align: left;
+    background:#090;
+    width:2500px;
+    padding:0px;
+    margin:0px;
+}
+
+div#tab_contents ul li{
+    float: left;
+    width:700px;
+    height: 80em;
+    list-style-type:none;
+    text-align: center;
+    padding:60px  20px  20px 20px;
+    background:#fffded;
+}
+
+
+/* -------------------- Source: http://bavotasan.com/2011/style-select-box-using-only-css/ */
+/*.styled-select {
+   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+   height: 29px;
+   overflow: hidden;
+   width: 240px;
+}
+.styled-select select {
+   background: transparent;
+   border: none;
+   font-size: 14px;
+   height: 29px;
+   padding: 5px; // If you add too much padding here, the options won't show in IE 
+   width: 268px;
+}
+
+.semi-square {
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+}
+
+.blue    { background-color: #3b8ec2; }
+.blue select    { color: #fff; }
+
+*/
