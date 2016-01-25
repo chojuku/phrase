@@ -28,7 +28,7 @@ if($_SESSION["S_USERID"]){
 if(! $db = new PDO("sqlite:../phrase.db")) {
     print "DB接続に失敗しました<br>";
 } else {
-    $sql = "select uname,uid from user where uid='$id'";
+    $sql = "select uname from user where uid='$id'";
     $stmt = $db -> prepare($sql);
     $flag = $stmt -> execute();
     if(! $flag){ 
@@ -36,39 +36,60 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
     }
     $cols = $stmt->fetch(PDO::FETCH_NUM);
     print "<div class=name>You're <font size=5 color=#ec6604> $cols[0] </font> <a href=logout.php>ログアウト</a></div>";
+
 }
 ?>
-
-    <div id="tab">
+<div id="tab">
       <a href="home.php">Phrases</a>
       <a href="tests.php">Tests</a>
       <a href="favorites.php">Favorites</a>
       <a href="category.php">Category</a>
       <a href="submit.php">Submit</a>
     </div>
-    <div id="main">
-
-<form action="scriptregister.php" method="post">
-<left>
-Title:<input type="text" name="title" size="12" ><br>
-LangId:<input type="text" name="langid" size="12" ><br>
-Original Sentence <textarea name="fsp" rows="4" cols="80"></textarea><br>
-Translated Sentence<textarea name="jsp" rows="4" cols="80"></textarea><br>
-Youtube ID<input type="text" name="video" size="12" ><br>
-Comment<textarea name="comment" rows="4" cols="80"></textarea>
-<input type="submit" value="投稿">
-</left>
-</form>
-
+  <div id="main">
 <?php
 
+if(! $db = new PDO("sqlite:../phrase.db")){
+  die("DB Connection Failed.");
+}
+$cname = $_GET['cname'];
+if($cname){
+$spsql = "SELECT s.sid,s.stitle FROM script s, category c WHERE c.cname ='$cname' and s.sid=c.sid";
+$stmt = $db->prepare($spsql);
+$stmt -> execute();
 
-$sql2 = "INSERT INTO script(stitle,upid,langid,fsp,jsp,video,comment)values('$title', '$col[2]', '$langid', '$fsp', '$jsp', '$video', '$comment')";
-$stmt2 = $db -> prepare($sql2);
-$flag2 = $stmt2 -> execute();
-if(!$flag2){
-    die("Data Insertion Failed.");
-    }1
+$cols = $stmt->fetch(PDO::FETCH_NUM);
+print "選択されたやつ:$cname";
+
+   $sql=<<<EOM
+     SELECT s.sid, s.stitle, s.jsp, c.cname
+     FROM script s, category c
+     WHERE s.sid = c.sid
+       and c.cid = '$cid';
+EOM;
+
+   $stmt = $db -> prepare($sql);
+   $stmt -> execute();
+
+   print "<table border=1>\n";
+   print "<tr>";
+   print "<th>学籍番号</th>";
+   print "<th>学科</th>";
+   print "<th>氏名</th>";
+   print "<th>成績</th>";
+   print "<tr>";
+   while($cols = $stmt->fetch(PDO::FETCH_NUM)){
+     print "<tr>\n";
+     print "<td>$cols[0]</td><td>$cols[1]</td><td>$cols[2]</td><td>$cols[3]</td>\n";
+     print "</tr>\n";
+   }
+   print "</table>\n";
+ }
+ else{
+   print "授業名を選択してください。\n";
+ }
+
 ?>
+</div>
 </body>
 </html>

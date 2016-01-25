@@ -46,7 +46,6 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
 $color= array("#ffec72", "#90cdb2");
 ?>
 
-  <div id="tabmenu">
     <div id="tab">
       <a href="home.php">Phrases</a>
       <a href="tests.php">Tests</a>
@@ -54,86 +53,74 @@ $color= array("#ffec72", "#90cdb2");
       <a href="category.php">Category</a>
       <a href="submit.php">Submit</a>
     </div>
-    <div id="tab_contents">
-      <ul>
-	<li id="tab1" name="Phrases">
-	  <div class="styled-select blue semi-square">
-	    <form action="home.php" method="get">
-	      <select name="sid">title: 
-		<?php
-		   while($titlecols = $titlestmt->fetch(PDO::FETCH_NUM)){
-		print "<option value=$titlecols[0]>$titlecols[1]";
-		  }
-		  ?>
-	      </select>
-	      <input type="submit" value="select">
-	    </form>
-	    <table>
-	      <tr>  
-	<?php
-	   $selectid = $_GET['sid'];
-	   // jsp fspの取得
-	   $jspsql = "SELECT sid,jsp FROM script WHERE $selectid = sid";
-	   $jspstmt = $db->prepare($jspsql);
-	$jspstmt -> execute();
-	$fspsql = "SELECT sid,fsp FROM script WHERE $selectid = sid";
-	$fspstmt = $db->prepare($fspsql);
-	$fspstmt -> execute();
+  <div id="main">
+<?php
 
-	while($jspcols = $jspstmt->fetch(PDO::FETCH_NUM)){
-	
-	//$jsppieces = explode('n',$jspscols[1]);
-	print "<td><div class='middlebox'><option value=$jspcols[0]>";
-		     
-		      print ($jspcols[1]);
-		      //	foreach($jsppieces as $key){
-		      //	print ($jsppieces);
-		      //}
-		      print "</div></td>";
-	}
-		      
-	while($fspcols = $fspstmt->fetch(PDO::FETCH_NUM)){
+if(! $db = new PDO("sqlite:../phrase.db")){
+  die("DB Connection Failed.");
+}
 
-	$fsppieces = explode(' ', $fspscols[1]);
-	print "<td><div class='middlebox'><option value=$fspcols[0]>";
-		      print ($fspcols[1]);
-	foreach($fsppieces as $key){
-	print ($key);
-		      }
-		      print "</div></td>";
-      }	
+$sql = "SELECT sid,stitle FROM script ";
+$stmt = $db->prepare($sql);
+$stmt -> execute();
 ?>
-	      </tr>
-	    </table>
-	    </div>
-      </li>
-      </ul>
-    </div>
-  </div>
-  <!--
-    <div class="box2"
-	 data-300="transform:translate(0,0%)">
-      [absolute mode] 左から出現して右へ消える。data-○○○はいくつ並べてもOK。
-    </div>
-   --> <!--
-    <div class="box2"
-    data-100="transform:translate(0,100%)"
-    data-200="transform:translate(0,80%)"
-    data-300="transform:translate(0,60%)"
-    data-400="transform:translate(0,40%)"
-    data-500="transform:translate(0,0%)"
-    data-600="transform:translate(0,0%)"
-    data-700="transform:translate(0,0%)"
-    data-800="transform:translate(0,-60%)"
-    data-900="transform:translate(0,-120%)">
-    [absolute mode] 左から出現して右へ消える。data-○○○はいくつ並べてもOK。
-    </div>
-    -->
-    
-    <script src="../js/skrollr.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>
-    var s = skrollr.init();
-</script>
+
+<form action="home.php" method="post">
+    <select name="title">title: 
+<?php
+while($cols = $stmt->fetch(PDO::FETCH_NUM)){
+  print "<option value=$cols[0]>$cols[1]";
+}
+?>
+ </select>
+<input type="submit" value="Select">
+</form>
+
+<?php
+ $sid=$_POST['title'];
+ if($sid){
+   $sql = "SELECT sid,jsp,stitle,video,comment,upid FROM script WHERE sid = '$sid'";
+   $stmt = $db -> prepare($sql);
+   $stmt -> execute();
+   $col = $stmt->fetch(PDO::FETCH_NUM);
+   $sql2 ="SELECT uname FROM user WHERE uid='$col[5]'";
+   $stmt2 = $db -> prepare($sql2);
+   $stmt2 -> execute();
+   $col2 = $stmt2->fetch(PDO::FETCH_NUM);
+   if($col[3]){
+   print "<iframe width='560' height='315' src='https://www.youtube.com/embed/$col[3]' frameborder=0 allowfullscreen></iframe><br><br>";
+   }
+   print "<font  color='#007b71'>$col[2]</font>";
+
+   $sql=<<<EOM
+     SELECT s.fsp, s.jsp
+     FROM  script s
+     WHERE s.sid = '$sid'
+EOM;
+
+   $stmt = $db -> prepare($sql);
+   $stmt -> execute();
+   print "<table border=1>\n";
+   print "<tr>";
+   print "<th>Original</th>";
+   print "<th>Japanese</th>";
+
+   print "<tr>";
+   while($cols = $stmt->fetch(PDO::FETCH_NUM)){
+     print "<tr>\n";
+     print "<td>$cols[0]</td><td>$cols[1]</td>\n";
+     print "</tr>\n";
+   }
+   print "</table>\n";
+   print "<table border=1><th>Comment</th><tr><td>$col[4]</td></tr></table>\n";
+   print "投稿者:$col2[0]\n";
+ }
+ else{
+   print "titleを選択してください。\n";
+ }
+?>
+</div>
+  </div> 
+ 
 </body>
 </html>

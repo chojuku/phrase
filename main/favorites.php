@@ -8,8 +8,8 @@ date_default_timezone_set('Asia/Tokyo');
     content="text/html; charset=utf8">       
     <title>Chojuku</title>
     <link rel="stylesheet" type="text/css" href="basic.css">
-    </head>
-    <body
+</head>
+<body
     <div id="bg1"
     data-2000="background-position:800px -1000px;"
     data-0="background-position:0px 0px;">
@@ -34,50 +34,98 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
     if(! $flag){ 
         print "<div id=warning>問合せ失敗…</div>";
     }
+  // titleの取得
+  $titlesql = "SELECT sid,stitle FROM script";
+  $titlestmt = $db->prepare($titlesql);
+  $titlestmt -> execute();
+
     $cols = $stmt->fetch(PDO::FETCH_NUM);
     print "<div class=name>You're <font size=5 color=#ec6604> $cols[0] </font> <a href=logout.php>ログアウト</a></div>";
+
 }
 $color= array("#ffec72", "#90cdb2");
 ?>
-<div id="tabmenu">
-    <div id="tabmenu">
+
+
+ <!-- <div id="tabmenu">-->
     <div id="tab">
-    <a href="home.php">Phrases</a>
-    <a href="tests.php">Tests</a>
-    <a href="favorites.php">Favorites</a>
-    <a href="category.php">Category</a>
-    <a href="submit.php">Submit</a>
+      <a href="home.php">Phrases</a>
+      <a href="tests.php">Tests</a>
+      <a href="favorites.php">Favorites</a>
+      <a href="category.php">Category</a>
+      <a href="submit.php">Submit</a>
     </div>
-    <div id="tab_contents">
-    <ul>
-    <li id="tab3" name="Favorites">"No3" this is tab container.you can write anythig.</li>
-    </ul>
-    </div>
-    </div>
-    <!--
-    <div class="box2"
-    data-300="transform:translate(0,0%)">
-    [absolute mode] 左から出現して右へ消える。data-○○○はいくつ並べてもOK。
-    </div>
-    --> <!--
-    <div class="box2"
-    data-100="transform:translate(0,100%)"
-    data-200="transform:translate(0,80%)"
-    data-300="transform:translate(0,60%)"
-    data-400="transform:translate(0,40%)"
-    data-500="transform:translate(0,0%)"
-    data-600="transform:translate(0,0%)"
-    data-700="transform:translate(0,0%)"
-    data-800="transform:translate(0,-60%)"
-    data-900="transform:translate(0,-120%)">
-    [absolute mode] 左から出現して右へ消える。data-○○○はいくつ並べてもOK。
-    </div>
-    -->
+
+<!--    <div id="tab_contents">-->
     
+  <div id="main">
+<?php
+
+if(! $db = new PDO("sqlite:../phrase.db")){
+  die("DB Connection Failed.");
+}
+
+$sql = "SELECT sid,stitle FROM script ";
+$stmt = $db->prepare($sql);
+$stmt -> execute();
+?>
+
+<form action="home.php" method="post">
+    <select name="title">title: 
+<?php
+while($cols = $stmt->fetch(PDO::FETCH_NUM)){
+  print "<option value=$cols[0]>$cols[1]";
+}
+?>
+ </select>
+<input type="submit" value="選択">
+</form>
+
+<?php
+ $sid=$_POST['title'];
+ if($sid){
+   $sql = "SELECT sid,jsp,stitle FROM script WHERE sid = '$sid'";
+   $stmt = $db -> prepare($sql);
+   $stmt -> execute();
+   $col = $stmt->fetch(PDO::FETCH_NUM);
+   print "<font  color='#007b71'>title：$col[2]</font>";
+
+   $sql=<<<EOM
+     SELECT s.fsp, s.jsp
+     FROM  script s
+     WHERE s.sid = '$sid'
+EOM;
+
+   $stmt = $db -> prepare($sql);
+   $stmt -> execute();
+
+   print "<table border=1>\n";
+   print "<tr>";
+   print "<th>Original</th>";
+   print "<th>Japanese</th>";
+
+   print "<tr>";
+   while($cols = $stmt->fetch(PDO::FETCH_NUM)){
+     print "<tr>\n";
+     print "<td>$cols[0]</td><td>$cols[1]</td>\n";
+     print "</tr>\n";
+   }
+   print "</table>\n";
+ }
+ else{
+   print "titleを選択してください。\n";
+ }
+?>
+
+</div>
+
+  </div> 
+
+   <!-- 
     <script src="../js/skrollr.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
     var s = skrollr.init();
-</script>
+</script>-->
 </body>
 </html>

@@ -1,1 +1,0 @@
-YuriY@yamamotoyuri-no-MacBook.local.9260

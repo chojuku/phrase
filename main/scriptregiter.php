@@ -5,18 +5,25 @@
 <?php
     if(!$db = new PDO("sqlite:../phrase.db")){
        header("HTTP/1.1 301 Moved Permanently");
-       header("Location: login.php?err=0");//DBÇÃñ‚ëË      
+       header("Location: submit.php?err=0");//DBÇÃñ‚ëË  
        exit;
    }
+$title = $_POST['title'];
+$langid = $_POST['langid'];
+$fsp = $_POST['fsp'];
+$jsp = $_POST['jsp'];
+$video = $_POST['video'];
+$comment = $_POST['comment'];
+
 
    if(!$_POST['newid'] ||!$_POST['newname'] || !$_POST['newpass1'] || !$_POST['newpass2']){
        header("HTTP/1.1 301 Moved Permanently");
-       header("Location: login.php?err=1");//ì¸óÕë´ÇËÇ»Ç¢      
+       header("Location: submit.php?err=1");//ì¸óÕë´ÇËÇ»Ç¢      
        exit;
    } 
    elseif($_POST['newpass1']!=$_POST['newpass2']){
        header("HTTP/1.1 301 Moved Permanently");
-       header("Location: login.php?err=2");//ÉpÉXÉèÅ[ÉhïsàÍív
+       header("Location: submit.php?err=2");//ÉpÉXÉèÅ[ÉhïsàÍív
        exit;      
    }
    else{
@@ -30,7 +37,7 @@
      $flag = $stmt -> execute();
      if(!$flag){
        header("HTTP/1.1 301 Moved Permanently");
-       header("Location: login.php?err=2");//ñ‚çáÇπé∏îs
+       header("Location: submit.php?err=2");//ñ‚çáÇπé∏îs
        exit;      
      }
 
@@ -45,7 +52,7 @@
      $flag = $stmt -> execute();
      if(!$flag){
        header("HTTP/1.1 301 Moved Permanently");
-       header("Location: login.php?err=3");//ñ‚çáÇπé∏îs
+       header("Location: submit.php?err=3");//ñ‚çáÇπé∏îs
        exit;      
      }
      else{

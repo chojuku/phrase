@@ -44,7 +44,7 @@ while($cols = $stmt->fetch(PDO::FETCH_NUM)){
    print "選択されたtile：$col[0]";
 
    $sql=<<<EOM
-     SELECT s.fsp, s.jsp, s.video, s.comment
+     SELECT s.fsp, s.jsp
      FROM  script s
      WHERE s.sid = '$sid'
 EOM;
@@ -56,12 +56,11 @@ EOM;
    print "<tr>";
    print "<th>原文</th>";
    print "<th>和訳</th>";
-   print "<th>youtube</th>";
-   print "<th>コメント</th>";
+
    print "<tr>";
    while($cols = $stmt->fetch(PDO::FETCH_NUM)){
      print "<tr>\n";
-     print "<td>$cols[0]</td><td>$cols[1]</td><td>$cols[2]</td><td>$cols[3]</td>\n";
+     print "<td>$cols[0]</td><td>$cols[1]</td>\n";
      print "</tr>\n";
    }
    print "</table>\n";
