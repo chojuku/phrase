@@ -1,7 +1,8 @@
 CREATE TABLE user (uid integer PRIMARY KEY, uname text NOT NULL, password text, fav integer);
-CREATE TABLE script (sid integer PRIMARY KEY UNIQUE, stitle text, upid integer, langid text, fsp text, jsp text, video text, comment text, stid integer);
+CREATE TABLE script (sid integer PRIMARY KEY UNIQUE, stitle text, upid integer, langid text, fsp text, jsp text, video text, comment text);
 CREATE TABLE category (cid integer PRIMARY KEY, cname text, sid integer);
 CREATE TABLE test (tid integer PRIMARY KEY UNIQUE, test text, ans text, rate integer);
+CREATE TABLE card (id integer PRIMARY KEY UNIQUE, fword text, jword text, suc integer, fail integer, sid integer, uid integer);
 
 INSERT INTO user(uname,password)VALUES ('yuri','3ca26628562eaacf005e80e2f6a33a237c12281b');
 INSERT INTO user(uname,password,fav)VALUES ('yuri','3ca26628562eaacf005e80e2f6a33a237c12281b',1);
@@ -9,7 +10,7 @@ INSERT INTO user(uname,password,fav)VALUES ('neko','nekoneko',1);
 INSERT INTO user(uname,password,fav)VALUES ('neko','nekoneko',2);
 INSERT INTO user(uname,password,fav)VALUES ('nyan','naynnyan',2);
 INSERT INTO script (sid, stitle) VALUES(0,'select title');
-INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment, stid) VALUES('When You Wish Upon a Star',1,'EN',
+INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment) VALUES('When You Wish Upon a Star',1,'EN',
 'When you wish upon a star<br>
 Make no difference who you are<br>
 Anything your heart desires<br>
@@ -38,7 +39,7 @@ Your dream comes true​',
 'これはディズニーアニメ ピノキオ に出てくる曲です。
 美しいメロディに美しい歌詞がついた素敵な曲です。
 少しキリスト教っぽい香りがしますが、力強くていい曲だと思います。
-歌詞を噛み締めながら聞いてみましょう',1);
+歌詞を噛み締めながら聞いてみましょう');
 INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment) VALUES('Once upon a dream',1,'EN',
 'I know you, I walked with you once upon a dream<br>
 I know you, that look in your eyes is so familiar a gleam<br>
@@ -100,7 +101,7 @@ The way you did once upon a dream<br>',
 ストーカーっぽくて怖いですねぇ。<br>
 兎も角、恋する乙女の心をぎゅっと凝縮した宝石みたいな一曲です<br>');
 
-INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment, stid) VALUES('魔法使いのショコラティエ - Le chocolatier enchanté -',2,'FR',
+INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment) VALUES('魔法使いのショコラティエ - Le chocolatier enchanté -',2,'FR',
 'Je me souviens , quand j’étais toute petite<br>
 Il y avait plein d’boites dans la vitrine<br>
 Et un p ‘tit chocolatier<br>
@@ -194,11 +195,11 @@ Un chocolat enchanté<br>
 <br>
 小さな魔法<br>
 
-小さな魔法<br>','vLCHLmMXbNI','ボカロ曲ですが、フランス人歌手のクレモンティーヌさんがOSTER PROJECT とコラボして発表している作品です♪<br>とにかくかわいいので聞いてみて♪',2);
+小さな魔法<br>','vLCHLmMXbNI','ボカロ曲ですが、フランス人歌手のクレモンティーヌさんがOSTER PROJECT とコラボして発表している作品です♪<br>とにかくかわいいので聞いてみて♪');
 
 
 
-INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment, stid) VALUES('Tomorrow',3,'EN',
+INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment) VALUES('Tomorrow',3,'EN',
 '<p>The sun’ll come out tomorrow<br>
 Bet your bottom dollar that tomorrow<br>
 There’ll be sun<br>
@@ -245,45 +246,11 @@ You’re always a day away!<br></p>',
 </p><p>
 トゥモロー トゥモロー 大好きよ トゥモロー<br>
 いつだって あと一日のところにいるのよ…<br>
-</p>','Yop62wQH498','明るくなれる曲です',1);
-
-
-
+</p>','Yop62wQH498','明るくなれる曲です');
 
 INSERT INTO category (cname, sid) VALUES('EN',1);
 INSERT INTO category (cname, sid) VALUES('EN',2);
 INSERT INTO category (cname, sid) VALUES('FR',3);
 INSERT INTO category (cname, sid) VALUES('DISNEY',1);
 INSERT INTO category (cname, sid) VALUES('DISNEY',2);
-
-INSERT INTO test (test, ans, rate) VALUES(
-'When you wish upon a star * * * who you are
-Anything your heart desires Will come to you
-If your heart is in your dream No * * * *
-When you wish upon a star As dreamers do
-Fate is kind
-She brings to those who love The sweet * of
-Their secret longing
-Like a bolt out of the blue
-Fate steps in and sees you through
-When you wish upon a star
-Your dream comes true​',
-'​* * * who you are ​-> ​Make no difference who you are
-No * * * * -> ​No request is too extreme
-The sweet * of -> The sweet fullfillment of​',70);
-
-
-INSERT INTO test (test, ans, rate) VALUES(
-'Je me souviens , quand j’étais toute *****
-Il y avait plein d’boites dans la vitrine
-   Et un p ‘tit chocolatier
-Et son chapeau d’patissier
-Il m’a souri , il semblait si gentil
-
-Le chocolat c’est une potion magique
-Quand on en mange tout est plus chic
-Il a posé dans ma main
-Un chocolat enchanté
-Un chocolat enchanté
-
-', 'Je me souviens , quand j’étais toute ****** -> Je me souviens , quand j’étais toute petite',20);
+INSERT INTO card (fword, jword, suc, fail, sid, uid) VALUES('chocolatier', 'ショコラティエ',0,0,3,1);

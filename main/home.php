@@ -35,17 +35,17 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
         print "<div id=warning>問合せ失敗…</div>";
     }
   // titleの取得
-  $titlesql = "SELECT sid,stitle FROM script";
-  $titlestmt = $db->prepare($titlesql);
-  $titlestmt -> execute();
-
+    $titlesql = "SELECT sid,stitle FROM script";
+    $titlestmt = $db->prepare($titlesql);
+    $titlestmt -> execute();
+    
     $cols = $stmt->fetch(PDO::FETCH_NUM);
     print "<div class=name>You're <font size=5 color=#ec6604> $cols[0] </font> <a href=logout.php>ログアウト</a></div>";
 
 }
 $color= array("#ffec72", "#90cdb2");
 ?>
-
+  
     <div id="tab">
       <a href="home.php">Phrases</a>
       <a href="tests.php">Tests</a>
@@ -100,7 +100,7 @@ EOM;
 
    $stmt = $db -> prepare($sql);
    $stmt -> execute();
-   print "<table border=1>\n";
+   print "<table border=1 valign='top'>\n";
    print "<tr>";
    print "<th>Original</th>";
    print "<th>Japanese</th>";
@@ -108,7 +108,7 @@ EOM;
    print "<tr>";
    while($cols = $stmt->fetch(PDO::FETCH_NUM)){
      print "<tr>\n";
-     print "<td>$cols[0]</td><td>$cols[1]</td>\n";
+     print "<td valign='top'>$cols[0]</td><td valign='top'>$cols[1]</td>\n";
      print "</tr>\n";
    }
    print "</table>\n";
@@ -121,6 +121,18 @@ EOM;
 ?>
 </div>
   </div> 
- 
+
 </body>
+<footer valign='top'>
+単語帳
+<form action="wordregister.php" method="post">
+<?php
+     print "<input type='hidden' name='scp' value='$sid'></input>";
+?>
+単語:<input type="text" name="fword" size="20"><br>
+和訳:<input type="text" name="jword" size="20"><br>
+その他:<input type="text" name="その他" size="20"><br>
+     <input type="submit" name="word" value="addcard">
+    </form>
+</footer>
 </html>

@@ -47,21 +47,32 @@ h1{
 	  height: 4em;
 	  padding:1em;
 	  text-align: center;
-	 z-index:2;
+	  z-index:2;
+	  position:absolute;
       }
 
       .middlebox{
 	  border:2px solid #444;
 	  border-radius: 4px;
-	  width: 310px;
-	  left:10px;
-	  positon:relative;
+	  width: 10em;
+	  height:10em;
+	  bottom:3px;
+	  right: 10px;
 	  text-align: center;
 	  font-family: serif;
-	  // z-index:2;
-	  word-wrap: break-word;
-	  margin: 0 auto;
-	  overflow:scroll;
+	  positon: fixed;
+      }
+
+      footer {
+	  border:2px solid #444;
+	  border-radius: 4px;
+	  position: fixed;
+	  bottom: 0;
+	  right: 0;
+	  height: 15em;
+	  width: 15em;
+	  text-align: center;
+	  background-color: white;
       }
       .name{
 	  width: 50em;
