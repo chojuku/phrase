@@ -6,7 +6,7 @@ date_default_timezone_set('Asia/Tokyo');
 <head>
 <meta http-equiv="Content-Type" 
     content="text/html; charset=utf8">       
-    <title>Chojuku</title>
+    <title>Phrase</title>
     <link rel="stylesheet" type="text/css" href="basic.css">
 </head>
 <body
@@ -127,12 +127,13 @@ EOM;
 単語帳
 <form action="wordregister.php" method="post">
 <?php
-     print "<input type='hidden' name='scp' value='$sid'></input>";
+     print "<input type='hidden' name='sid' value='$sid'></input>";
+     print "<input type='hidden' name='uid' value='$id'></input>";
 ?>
 単語:<input type="text" name="fword" size="20"><br>
 和訳:<input type="text" name="jword" size="20"><br>
-その他:<input type="text" name="その他" size="20"><br>
-     <input type="submit" name="word" value="addcard">
+その他:<textarea name="other" rows="3" cols="20"></textarea>
+     <input type="submit" name="word" value="card">
     </form>
 </footer>
 </html>

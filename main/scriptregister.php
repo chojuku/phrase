@@ -36,7 +36,7 @@ if(!$_POST['title'] ||!$_POST['fsp'] || !$_POST['jsp'] || !$_POST['langid']){
     // }
     $stmt = $db -> prepare($sql);
     $flag = $stmt -> execute();
-     $cols = $stmt->fetch(PDO::FETCH_NUM);
+    $cols = $stmt->fetch(PDO::FETCH_NUM);
     if(!$flag){
         header("HTTP/1.1 301 Moved Permanently");
         header("Location: submit.php?err=3");//ñ‚çáÇπé∏îs
