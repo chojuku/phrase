@@ -2,7 +2,7 @@ CREATE TABLE user (uid integer PRIMARY KEY, uname text NOT NULL, password text, 
 CREATE TABLE script (sid integer PRIMARY KEY UNIQUE, stitle text, upid integer, langid text, fsp text, jsp text, video text, comment text);
 CREATE TABLE category (cid integer PRIMARY KEY, cname text, sid integer);
 CREATE TABLE test (tid integer PRIMARY KEY UNIQUE, test text, ans text, rate integer);
-CREATE TABLE card (id integer PRIMARY KEY UNIQUE, fword text, jword text, suc integer, fail integer, sid integer, uid integer);
+CREATE TABLE card (id integer PRIMARY KEY UNIQUE, fword text, jword text, other text, suc integer, fail integer, sid integer, uid integer);
 
 INSERT INTO user(uname,password)VALUES ('yuri','3ca26628562eaacf005e80e2f6a33a237c12281b');
 INSERT INTO user(uname,password,fav)VALUES ('yuri','3ca26628562eaacf005e80e2f6a33a237c12281b',1);
@@ -15,25 +15,32 @@ INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment) VALUES('When
 Make no difference who you are<br>
 Anything your heart desires<br>
 Will come to you<br>
-If your heart is in your dream No request is too extreme<br>
+If your heart is in your dream<br>
+No request is too extreme<br>
 When you wish upon a star<br>
-As dreamers do<br>
+As dreamers do<br><br>
 Fate is kind<br>
 She brings to those who love <br>
-The sweet fulfillment of Their secret longing<br>
+The sweet fulfillment of <br>
+Their secret longing<br>
 Like a bolt out of the blue<br>
 Fate steps in and sees you through<br>
 When you wish upon a star<br>
 Your dream comes true​',
 '星に願いを懸けるとき<br>
-誰だって 心を込めて望むなら<br>
+誰だって<br>
+心を込めて望むなら<br>
 きっと願いは叶うでしょう<br>
 心の底から夢みているのなら<br>
-夢追人がするように 星に願いを懸けるなら<br>
-叶わぬ願いなどないのです<br>
-愛し合うふたりの 密めたあこがれを<br>
-運命は優しく 満たしてくれます<br>
-星に願いを懸けるなら 運命は思いがけなくやって来て<br>
+夢追人がするように<br>
+星に願いを懸けるなら<br>
+叶わぬ願いなどないのです<br><br>
+愛し合うふたりの<br>
+密めたあこがれを<br>
+運命は優しく<br>
+満たしてくれます<br>
+星に願いを懸けるなら<br>
+運命は思いがけなくやって来て<br>
 いつも必ず 夢を叶えてくれるのです<br>',
 'A0L5TnemXJs',
 'これはディズニーアニメ ピノキオ に出てくる曲です。

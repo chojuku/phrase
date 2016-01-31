@@ -41,9 +41,7 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
     
     $cols = $stmt->fetch(PDO::FETCH_NUM);
     print "<div class=name>You're <font size=5 color=#ec6604> $cols[0] </font> <a href=logout.php>ログアウト</a></div>";
-
 }
-$color= array("#ffec72", "#90cdb2");
 ?>
   
     <div id="tab">

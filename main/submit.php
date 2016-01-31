@@ -1,3 +1,7 @@
+<?php
+ini_set('display_errors', 'Off');
+date_default_timezone_set('Asia/Tokyo');
+?>
 <html>
   <head>
     <meta http-equiv="Content-Type"
@@ -13,7 +17,7 @@
      <h1>Phrases of Word & Japanese</h1>
      
 <?php
-     session_start();
+    session_start();
 if($_SESSION["S_USERID"]){     
 	$id = $_SESSION["S_USERID"];
 }else{

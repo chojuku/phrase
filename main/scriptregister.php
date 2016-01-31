@@ -14,10 +14,10 @@ if(!$_POST['title'] ||!$_POST['fsp'] || !$_POST['jsp'] || !$_POST['langid']){
 } else{
     $title = mb_convert_encoding($_POST['title'], "UTF-8", "auto");
     $langid = mb_convert_encoding($_POST['langid'], "UTF-8", "auto");
-    $fsp = mb_convert_encoding($_POST['fsp'], "UTF-8", "auto");
-    $jsp = mb_convert_encoding($_POST['jsp'], "UTF-8", "auto");
+    $fsp = 	nl2br(mb_convert_encoding($_POST['fsp'], "UTF-8", "auto"));
+    $jsp = 	nl2br(mb_convert_encoding($_POST['jsp'], "UTF-8", "auto"));
     $video = mb_convert_encoding($_POST['video'], "UTF-8", "auto");
-    $comment = mb_convert_encoding($_POST['comment'], "UTF-8", "auto");
+    $comment = 	nl2br(mb_convert_encoding($_POST['comment'], "UTF-8", "auto"));
     $id = $_POST['id'];
     
     /* $sql = "SELECT count(*) FROM script WHERE stitle = '$title';"; //Šù‚É“o˜^‚³‚ê‚Ä‚¢‚é‚©Šm”F‚·‚é
