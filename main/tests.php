@@ -23,7 +23,8 @@ if($_SESSION["S_USERID"]){
     header("Location: index.php");
     exit;            
 }
-if(! $db = new PDO("sqlite:../phrase.db")){
+//$db2 = new PDO("sqlite:../phrase.db");
+if(! $db = new PDO("sqlite:../phrase.db") ){
     print "DB接続に失敗しました<br>";
 }else{
     $sql = "select uname from user where uid='$id'";
@@ -129,8 +130,14 @@ if($mode == "both" || $mode == "fword" || $mode == "jword") {
              $kkk = mb_convert_encoding($_POST["$fword"], 'UTF-8', 'auto');
              if($kkk == "$cols[2]"){
                  print "Passed:  $cols[2]";
+                 $sql2 = "UPDATE card set suc = suc + 1 where id='$cols[0]'";
+                 $stmt2 = $db->prepare($sql2);
+                 $stmt2 -> execute();
              }else if($kkk){
                  print "Wrong:  $cols[2]";
+                 $sql2 = "UPDATE card set fail = fail + 1 where id='$cols[0]'";
+                  $stmt2 = $db->prepare($sql2);
+                  $stmt2 -> execute();
              }else{
             print "　　　";
         }
@@ -141,17 +148,22 @@ if($mode == "both" || $mode == "fword" || $mode == "jword") {
             $kkj = mb_convert_encoding($_POST["$jword"], 'UTF-8', 'auto');
               if($kkj == "$cols[1]"){
             print "Passed:  $cols[1]";
+            $sql2 = "UPDATE card set suc = suc + 1 where id='$cols[0]'";
+             $stmt2 = $db->prepare($sql2);
+             $stmt2 -> execute();
         }else if($kkj){
             print "Wrong:  $cols[1]";
+            $sql2 = "UPDATE card set fail = fail + 1 where id='$cols[0]'";
+             $stmt2 = $db->prepare($sql2);
+             $stmt2 -> execute();
             }else{
             print "　　　";
         }
-        }
-      
+        } 
+     
         print "</td>";
-
-
         print "</tr>\n";
+       
     }
     print "</table>\n";
   print "<input type='button' onclick='submit()' name='check' value='check'>";
