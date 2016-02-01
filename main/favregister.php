@@ -5,8 +5,8 @@ if(!$db = new PDO("sqlite:../phrase.db")){
     header("Location: home.php?err=0");      
     exit;
 }
-$sid = $_POST['sid'];
-$uname = $_POST['uname'];
+$sid =  mb_convert_encoding($_POST['sid'], "UTF-8", "auto");
+$uname = mb_convert_encoding($_POST['uname'], "UTF-8", "auto");
 $fav = $_POST['fav'];
 
 if($fav == 'up'){
@@ -23,7 +23,7 @@ else if($fav == 'down'){
           exit;      
      }else{
          header("HTTP/1.1 301 Moved Permanently");
-          header("Location: home.php");
+          header("Location: home.php?title=$sid");
           exit;   
      }
 

@@ -73,7 +73,7 @@ $stmt = $db->prepare($sql);
 $stmt -> execute();
 ?>
 
-<form action="home.php" method="post">
+<form action="home.php" method="get">
     <select name="title">
 <?php
 while($cols = $stmt->fetch(PDO::FETCH_NUM)){
@@ -86,7 +86,7 @@ while($cols = $stmt->fetch(PDO::FETCH_NUM)){
 
 
 <?php
- $sid=$_POST['title'];
+ $sid=$_GET['title'];
  if($sid){
    $sql = "SELECT sid,jsp,stitle,video,comment,upid FROM script WHERE sid = '$sid'";
    $stmt = $db -> prepare($sql);
@@ -109,7 +109,7 @@ while($cols = $stmt->fetch(PDO::FETCH_NUM)){
    print "<form action='favregister.php' method='post'>";
    print "<input type='hidden' name='sid' value='$sid'></input>";
    print "<input type='hidden' name='uname' value='$uname'></input>";
-   if($col[0]){
+   if($col3[0]){
    print "<input type='image' src='../images/heart.png' name='fav' value='down' align='right'> ";
    }else{
    print "<input type='image' src='../images/gray.png' name='fav' value='up' align='right'>";  

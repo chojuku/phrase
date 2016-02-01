@@ -54,7 +54,7 @@ $stmt = $db->prepare($sql);
 $stmt -> execute();
 ?>
 
-<form action="tests.php" method="post">
+<form action="tests.php" method="get">
     test mode:
     <select name="mode">
     <option value="0">テスト方法を選択してください</option>
@@ -73,7 +73,7 @@ $stmt -> execute();
     </form>
     
 <?php
-    $mode = $_POST['mode'];
+    $mode = $_GET['mode'];
 
 if($mode == "allf" || $mode == "allj") {
     $sql == "SELECT id, fword, jword FROM card WHERE uid = '$id'";
@@ -117,17 +117,17 @@ if($mode == "both" || $mode == "fword" || $mode == "jword") {
     }
     print "</table>\n";
 } else if($mode == "allf" || $mode == "allj" || $mode == "ramdomf" || $mode == "ramdomj" || $mode == "lessf" ||$mode == "lessj") {
+    print "<form action='tests.php' method='post'>";
+    print "<input type='button' onclick='submit()' name='check' value='check'>";
        print "<table>\n";
     while($cols = $stmt->fetch(PDO::FETCH_NUM)){
         print "<tr>\n";
         if($mode == "allf" || $mode == "randomf" || $mode == "lessf"){
             print "<td> $cols[1]</td><td>→</td>";
-            print "<td><form action='tests.php' method='post'><input type='text' name='ansf'.'$cols[0]' size='20'></form></td><td>";
-         
-
+            print "<td><input type='text' name='ansf'.'$cols[0]' size='20'></td><td>";
         } else {
             print "<td> $cols[2]</td><td>→</td>";
-            print "<td><form action='tests.php' method='post'><input type='text' name='ansj'.$id size='20'></form></td>";
+            print "<td><input type='text' name='ansj'.$id size='20'></td>";
         }
 
         if($_POST['ansf'.'$cols[0]'] == '$cols[2]'){
@@ -143,6 +143,7 @@ if($mode == "both" || $mode == "fword" || $mode == "jword") {
         print "</tr>\n";
     }
     print "</table>\n";
+            print "</form>";
 }else{
     print "TestModeを選択してください。\n";
 }
