@@ -117,32 +117,44 @@ if($mode == "both" || $mode == "fword" || $mode == "jword") {
     }
     print "</table>\n";
 } else if($mode == "allf" || $mode == "allj" || $mode == "ramdomf" || $mode == "ramdomj" || $mode == "lessf" ||$mode == "lessj") {
-    print "<form action='tests.php' method='post'>";
-    print "<input type='button' onclick='submit()' name='check' value='check'>";
+    print "<form action='tests.php?mode=$mode' method='post'>";
+    print "<input type='hidden' name='mode' value='$mode'></input>";
        print "<table>\n";
     while($cols = $stmt->fetch(PDO::FETCH_NUM)){
         print "<tr>\n";
         if($mode == "allf" || $mode == "randomf" || $mode == "lessf"){
             print "<td> $cols[1]</td><td>→</td>";
-            print "<td><input type='text' name='ansf'.'$cols[0]' size='20'></td><td>";
+            print "<td><input type='text' name='ansf$cols[0]' size='20'></td><td>";
+             $fword = "ansf" . "$cols[0]";
+             $kkk = mb_convert_encoding($_POST["$fword"], 'UTF-8', 'auto');
+             if($kkk == "$cols[2]"){
+                 print "Passed:  $cols[2]";
+             }else if($kkk){
+                 print "Wrong:  $cols[2]";
+             }else{
+            print "　　　";
+        }
         } else {
             print "<td> $cols[2]</td><td>→</td>";
-            print "<td><input type='text' name='ansj'.$id size='20'></td>";
-        }
-
-        if($_POST['ansf'.'$cols[0]'] == '$cols[2]'){
-            print "Passed";
-        }else if($_POST['ansf'.'$cols[0]']){
-            print "Wrong";
+            print "<td><input type='text' name='ansj$cols[0]' size='20'></td><td>";
+            $jword = "ansj" . "$cols[0]";
+            $kkj = mb_convert_encoding($_POST["$jword"], 'UTF-8', 'auto');
+              if($kkj == "$cols[1]"){
+            print "Passed:  $cols[1]";
+        }else if($kkj){
+            print "Wrong:  $cols[1]";
             }else{
             print "　　　";
         }
+        }
+      
         print "</td>";
 
 
         print "</tr>\n";
     }
     print "</table>\n";
+  print "<input type='button' onclick='submit()' name='check' value='check'>";
             print "</form>";
 }else{
     print "TestModeを選択してください。\n";
