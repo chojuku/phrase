@@ -1,11 +1,9 @@
 <?php	
 ini_set('display_errors', 'Off');
-date_default_timezone_set('Asia/Tokyo');
 session_start();
 
 // 既にログインしている
 if(isset($_SESSION["S_USERID"])) {
-    
     header("HTTP/1.1 301 Moved Permanently");
     header("Location: home.php");
     exit;
@@ -41,20 +39,20 @@ if(isset($_SESSION["S_USERID"])) {
 <html>
 <head>
 <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>Phrases</title>
-      <link rel="stylesheet" type="text/css" href="index.css">
-      </head>
-      <body
-      <div id="bg1">
-      <h1>Phrases of World & Japanese</h1>             
-      <div id="center">
-      <div id="left" align="right">
-      <form action="index.php" method="post"> 
-      <input type="text" name="id" size="12" ><br>
-      <input type="password" name="password" size="12" ><br>
-      <input type="submit" name="login" value="Login" >
-      </form>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Phrases</title>
+<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body
+   <div id="bg1">
+     <h1>Phrases of World & Japanese</h1>             
+     <div id="center">
+       <div id="left" align="right">
+	 <form action="index.php" method="post"> 
+	   <input type="text" name="id" size="12" ><br>
+	   <input type="password" name="password" size="12" ><br>
+	   <input type="submit" name="login" value="Login" >
+	 </form>
 <?php
       if(isset($_GET['failed'])){ //ログインに失敗している
 	      print "<div id=warning>Login Failed</div>";

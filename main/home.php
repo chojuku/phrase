@@ -5,7 +5,7 @@ date_default_timezone_set('Asia/Tokyo');
 <html>
 <head>
 <meta http-equiv="Content-Type" 
-    content="text/html; charset=utf8">       
+    content="text/html; charset=utf8">
     <title>Phrase</title>
     <link rel="stylesheet" type="text/css" href="basic.css">
 </head>
@@ -40,11 +40,21 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
     $titlestmt -> execute();
     
     $cols = $stmt->fetch(PDO::FETCH_NUM);
-    print "<div class=name>You're <font size=5 color=#ec6604> $cols[0] </font> <a href=logout.php>ログアウト</a></div>";
+    $uname = $cols[0];
+    print "<div class=name>You're <font size=5 color=#ec6604> $cols[0] </font> <a href=logout.php>ログアウト</a>";
+if($_GET['err']){
+    $errno=$_GET['err'];
+    $err_message= array("Can't connect with DB","Input all items","Password missmatch","fail to ragister","Input all items");
+    if($errno != 4){
+    print "<font color='red'>$err_message[$errno]</font>"; 
+    }
 }
+print  "</div>";
+}
+
 ?>
   
-    <div id="tab">
+<div id="tab">
       <a href="home.php">Phrases</a>
       <a href="tests.php">Tests</a>
       <a href="favorites.php">Favorites</a>
@@ -64,7 +74,7 @@ $stmt -> execute();
 ?>
 
 <form action="home.php" method="post">
-    <select name="title">title: 
+    <select name="title">
 <?php
 while($cols = $stmt->fetch(PDO::FETCH_NUM)){
   print "<option value=$cols[0]>$cols[1]";
@@ -73,6 +83,7 @@ while($cols = $stmt->fetch(PDO::FETCH_NUM)){
  </select>
 <input type="submit" value="Select">
 </form>
+
 
 <?php
  $sid=$_POST['title'];
@@ -88,8 +99,22 @@ while($cols = $stmt->fetch(PDO::FETCH_NUM)){
    if($col[3]){
    print "<iframe width='560' height='315' src='https://www.youtube.com/embed/$col[3]' frameborder=0 allowfullscreen></iframe><br><br>";
    }
-   print "<font  color='#007b71'>$col[2]</font>";
 
+   $sql= "SELECT fav FROM user WHERE uname='$uname' and fav='$sid'";
+   $stmt = $db -> prepare($sql);
+   $stmt -> execute();
+   $col = $stmt->fetch(PDO::FETCH_NUM);
+
+   print "<font size=5 color='#007b71'>$col[2]</font>";
+   print "<form action='favregister.php' method='post'>";
+   print "<input type='hidden' name='sid' value='$sid'></input>";
+   print "<input type='hidden' name='uname' value='$uname'></input>";
+   if($col[0]){
+   print "<input type='image' src='../images/heart.png' name='fav' value='down' align='right'> ";
+   }else{
+   print "<input type='image' src='../images/gray.png' name='fav' value='up' align='right'>";  
+   print"</form>";
+   }
    $sql=<<<EOM
      SELECT s.fsp, s.jsp
      FROM  script s
@@ -116,22 +141,28 @@ EOM;
  else{
    print "titleを選択してください。\n";
  }
+
+
 ?>
 </div>
   </div> 
+
 
 </body>
 <footer valign='top'>
 単語帳
 <form action="wordregister.php" method="post">
 <?php
+     if($errno == 4){
+     print "<font size='1'color='red'>$err_message[$errno]<br></font>"; 
+     }
      print "<input type='hidden' name='sid' value='$sid'></input>";
      print "<input type='hidden' name='uid' value='$id'></input>";
 ?>
 単語:<input type="text" name="fword" size="20"><br>
 和訳:<input type="text" name="jword" size="20"><br>
 その他:<textarea name="other" rows="3" cols="20"></textarea>
-     <input type="submit" name="word" value="card">
+     <input type="button" onclick="submit()" name="word" value="card">
     </form>
 </footer>
 </html>

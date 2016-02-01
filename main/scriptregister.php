@@ -32,7 +32,16 @@ if(!$_POST['title'] ||!$_POST['fsp'] || !$_POST['jsp'] || !$_POST['langid']){
     if($cols[0]>0){ //Šù‚É“o˜^‚³‚ê‚Ä‚¢‚é‚Ì‚Åã‘‚«‚·‚é
         $sql = "UPDATE script SET fsp='$fsp', jsp='$jsp', video='$video', comment='$comment' where stitle='$title';";
         }else{*/
+    if($comment && $video) {
     $sql = "INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment) VALUES('$title', $id ,'$langid', '$fsp', '$jsp', '$video', '$comment');"; 
+    } else if ($comment) {
+        $sql = "INSERT INTO script (stitle, upid, langid, fsp, jsp, comment) VALUES('$title', $id ,'$langid', '$fsp', '$jsp', '$comment');"; 
+    }else if ($video) {
+        $sql = "INSERT INTO script (stitle, upid, langid, fsp, jsp, video) VALUES('$title', $id ,'$langid', '$fsp', '$jsp', '$video');"; 
+    } else {
+        $sql = "INSERT INTO script (stitle, upid, langid, fsp, jsp) VALUES('$title', $id ,'$langid', '$fsp', '$jsp');"; 
+    }
+
     // }
     $stmt = $db -> prepare($sql);
     $flag = $stmt -> execute();

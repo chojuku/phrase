@@ -58,7 +58,7 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
       LangId:<input type="text" name="langid" size="12" >
       Youtube ID<input type="text" name="video" size="20" ><br>
       Comment<textarea name="comment" rows="4" cols="80"></textarea>
-      <input type="submit" value="投稿">
+      <input type="button" onclick="submit()"  value="投稿">
     </left>
   </form>
 </body>

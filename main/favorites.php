@@ -43,11 +43,8 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
     print "<div class=name>You're <font size=5 color=#ec6604> $cols[0] </font> <a href=logout.php>ログアウト</a></div>";
 
 }
-$color= array("#ffec72", "#90cdb2");
 ?>
 
-
- <!-- <div id="tabmenu">-->
     <div id="tab">
       <a href="home.php">Phrases</a>
       <a href="tests.php">Tests</a>
@@ -55,9 +52,6 @@ $color= array("#ffec72", "#90cdb2");
       <a href="category.php">Category</a>
       <a href="submit.php">Submit</a>
     </div>
-
-<!--    <div id="tab_contents">-->
-    
   <div id="main">
 <?php
 

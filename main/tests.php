@@ -57,6 +57,7 @@ $stmt -> execute();
 <form action="tests.php" method="post">
     test mode:
     <select name="mode">
+    <option value="0">テスト方法を選択してください</option>
     <option value="allf">すべての単語で和訳テストする</option>
     <option value="allj">すべての単語で外国語訳テストする</option>
     <option value="ramdomf">ランダムで10個和訳テストする</option>
@@ -74,56 +75,79 @@ $stmt -> execute();
 <?php
     $mode = $_POST['mode'];
 
-if($mode="allf" || $mode="allj") {
-    $sql = "SELECT id, fword, jword FROM card WHERE uid = '$id'";
-} else if($mode="ramdomf" || $mode="ramdomj") {
+if($mode == "allf" || $mode == "allj") {
+    $sql == "SELECT id, fword, jword FROM card WHERE uid = '$id'";
+} else if($mode == "ramdomf" || $mode == "ramdomj") {
     $sql = "SELECT id, fword, jword FROM card WHERE uid = '$id' ORDER BY RANDOM() LIMIT 10";
-} else if($mode="lessf" || $mode="lessj") {
+} else if($mode == "lessf" || $mode == "lessj") {
     $sql = "SELECT id, fword, jword FROM card c WHERE uid = '$id' ORDER BY suc <= fail  LIMIT 10";
-} else if($mode="both"|| $mode="fword"|| $mode="jword") {
-    $sql = "SELECT id, fword, jword, other, suc, fail, sid FROM card WHERE uid='$id'";
-} else if($mode="download"){
+} else if($mode == "both"|| $mode == "fword" || $mode == "jword") {
+    $sql = "SELECT id, fword, jword, other, suc, fail, sid FROM card WHERE uid = '$id'"; 
+} else if($mode == "download") {
     // $sql = "";
 }
+$stmt = $db -> prepare($sql);
+$stmt -> execute();
 
-if($mode && $mode != "download"){
-    $stmt = $db -> prepare($sql);
-    $stmt -> execute();
-    $col = $stmt->fetch(PDO::FETCH_NUM);
-    
-    $sql=<<<EOM
-     SELECT s.fsp, s.jsp
-     FROM  script s
-     WHERE s.sid = '$sid'
-EOM;
-
-    $stmt = $db -> prepare($sql);
-    $stmt -> execute();
-    
+if($mode == "both" || $mode == "fword" || $mode == "jword") {
     print "<table border=1>\n";
     print "<tr>";
-    print "<th>Original</th>";
-    print "<th>Japanese</th>";
-   
-   print "<tr>";
-   while($cols = $stmt->fetch(PDO::FETCH_NUM)){
-       print "<tr>\n";
-       print "<td>$cols[0]</td><td>$cols[1]</td>\n";
-     print "</tr>\n";
-   }
-   print "</table>\n";
-}
-else{
-   print "TestModeを選択してください。\n";
+    if($mode == "both" || $mode == "fword") {
+        print "<th>$mode</th>";
+    }
+    if($mode == "both" || $mode == "jword") {
+        print "<th>Japanese</th>";
+    }
+    print "<th>Comments</th>";
+    print "<th>rate</th>";
+    print "<th>script</th>";
+    print "<tr>";
+    while($cols = $stmt->fetch(PDO::FETCH_NUM)){
+        print "<tr>\n";
+        if($mode == "both" || $mode == "fword"){
+            print "<td>$cols[1]</td>";
+        }
+        if($mode == "both" || $mode == "jword"){
+            print "<td>$cols[2]</td>";
+        }
+        print "<td>$cols[3]</td>";
+        print "<td>$cols[4] / $cols[5]</td>";
+        print "<td>$col[6]</td>\n";
+        print "</tr>\n";
+    }
+    print "</table>\n";
+} else if($mode == "allf" || $mode == "allj" || $mode == "ramdomf" || $mode == "ramdomj" || $mode == "lessf" ||$mode == "lessj") {
+       print "<table>\n";
+    while($cols = $stmt->fetch(PDO::FETCH_NUM)){
+        print "<tr>\n";
+        if($mode == "allf" || $mode == "randomf" || $mode == "lessf"){
+            print "<td> $cols[1]</td><td>→</td>";
+            print "<td><form action='tests.php' method='post'><input type='text' name='ansf'.'$cols[0]' size='20'></form></td><td>";
+         
+
+        } else {
+            print "<td> $cols[2]</td><td>→</td>";
+            print "<td><form action='tests.php' method='post'><input type='text' name='ansj'.$id size='20'></form></td>";
+        }
+
+        if($_POST['ansf'.'$cols[0]'] == '$cols[2]'){
+            print "Passed";
+        }else if($_POST['ansf'.'$cols[0]']){
+            print "Wrong";
+            }else{
+            print "　　　";
+        }
+        print "</td>";
+
+
+        print "</tr>\n";
+    }
+    print "</table>\n";
+}else{
+    print "TestModeを選択してください。\n";
 }
 ?>
 </div>
   </div> 
-<!--
-    <script src="../js/skrollr.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>
-    var s = skrollr.init();
-</script> -->
 </body>
 </html>
