@@ -101,9 +101,9 @@ while($cols = $stmt->fetch(PDO::FETCH_NUM)){
    }
 
    $sql= "SELECT fav FROM user WHERE uname='$uname' and fav='$sid'";
-   $stmt = $db -> prepare($sql);
-   $stmt -> execute();
-   $col = $stmt->fetch(PDO::FETCH_NUM);
+   $stmt3 = $db -> prepare($sql);
+   $stmt3 -> execute();
+   $col3 = $stmt3->fetch(PDO::FETCH_NUM);
 
    print "<font size=5 color='#007b71'>$col[2]</font>";
    print "<form action='favregister.php' method='post'>";
@@ -123,6 +123,7 @@ EOM;
 
    $stmt = $db -> prepare($sql);
    $stmt -> execute();
+
    print "<table border=1 valign='top'>\n";
    print "<tr>";
    print "<th>Original</th>";

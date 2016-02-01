@@ -45,19 +45,31 @@ Your dream comes true​',
 少しキリスト教っぽい香りがしますが、力強くていい曲だと思います。
 歌詞を噛み締めながら聞いてみましょう');
 INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment) VALUES('Once upon a dream',1,'EN',
-'I know you, I walked with you once upon a dream<br>
-I know you, that look in your eyes is so familiar a gleam<br>
-And I know it''s true that visions are seldom what they seem<br>
-But if I know you, I know what you''ll do<br>
-You''ll love me at once, the way you did once upon a dream<br>
-But if I know you, I know what you do<br>
+'I know you, <br>
+I walked with you once upon a dream<br>
+I know you, <br>
+that look in your eyes is so familiar a gleam<br>
+And I know it''s true <br>
+that visions are seldom what they seem<br>
+But if I know you,<br>
+I know what you''ll do<br>
+You''ll love me at once, <br>
+the way you did once upon a dream<br>
+But if I know you, <br>
+I know what you do<br>
 You love me at once<br>
 The way you did once upon a dream<br>
-I know you, I walked with you once upon a dream<br>
-I know you, the gleam in your eyes is so familiar a gleam<br>
-And I know it''s true that visions are seldom what they seem<br>
-But if I know you, I know what you''ll do<br>
-You''ll love me at once, the way you did once upon a dream<br>
+I know you, <br>
+I walked with you once upon a dream<br>
+I know you, <br>
+the gleam in your eyes <br>
+is so familiar a gleam<br>
+And I know it''s true <br>
+that visions are seldom what they seem<br>
+But if I know you, <br>
+I know what you''ll do<br>
+You''ll love me at once,<br>
+ the way you did once upon a dream<br>
 But if I know you, I know what you do<br>
 You love me at once<br>
 The way you did once upon a dream<br>',
