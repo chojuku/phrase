@@ -34,11 +34,6 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
     if(! $flag){ 
         print "<div id=warning>問合せ失敗…</div>";
     }
-  // titleの取得
-  $titlesql = "SELECT sid,stitle FROM script";
-  $titlestmt = $db->prepare($titlesql);
-  $titlestmt -> execute();
-
     $cols = $stmt->fetch(PDO::FETCH_NUM);
     print "<div class=name>You're <font size=5 color=#ec6604> $cols[0] </font> <a href=logout.php>ログアウト</a></div>";
 
@@ -62,9 +57,15 @@ $sql = "SELECT cname FROM category GROUP BY cname";
 $stmt = $db->prepare($sql);
 $stmt -> execute();
 
+
 print "<table>\n";
 while($cols = $stmt->fetch(PDO::FETCH_NUM)){
-    print "<tr><td><a href=categoryback.php?cname=$cols[0]>$cols[0]</a></td></tr>\n";
+    $sql = "SELECT s.stitle FROM script s, category c WHERE c.cname = '$cols[0]' and c.sid = s.sid";
+    $stmt2 = $db ->prepare($sql);
+    $stmt2 -> execute();
+    $colin =  $stmt2->fetch(PDO::FETCH_NUM);
+
+    print "<tr><td><a href=categoryback.php?cname=$cols[0]>$cols[0]</a></td><td>$colin[0]</td></tr>\n";
 }
 print "</table>";
 ?>

@@ -1,14 +1,14 @@
 CREATE TABLE user (uid integer PRIMARY KEY, uname text NOT NULL, password text);
 CREATE TABLE fav (fid integer PRIMARY KEY, uid integer NOT NULL, sid integer NOT NULL);
-CREATE TABLE script (sid integer PRIMARY KEY UNIQUE, stitle text, upid integer, langid text, fsp text, jsp text, video text, comment text);
-CREATE TABLE category (cid integer PRIMARY KEY, cname text, sid integer);
+CREATE TABLE script (sid integer PRIMARY KEY UNIQUE, stitle text, upid integer, fsp text, jsp text, video text, comment text);
+CREATE TABLE category (cid integer PRIMARY KEY, cname text, sid integer, uid integer);
 CREATE TABLE card (id integer PRIMARY KEY UNIQUE, fword text, jword text, other text, suc integer, fail integer, sid integer, uid integer);
 
 INSERT INTO fav (uid, sid) VALUES(1,1);
 INSERT INTO user(uname,password)VALUES ('yuri','3ca26628562eaacf005e80e2f6a33a237c12281b');
 INSERT INTO user(uname,password)VALUES ('nyan','naynnyan');
 INSERT INTO script (sid, stitle) VALUES(0,'select title');
-INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment) VALUES('When You Wish Upon a Star',1,'EN',
+INSERT INTO script (stitle, upid, fsp, jsp, video, comment) VALUES('When You Wish Upon a Star',1,
 'When you wish upon a star<br>
 Make no difference who you are<br>
 Anything your heart desires<br>
@@ -45,7 +45,7 @@ Your dream comes true​',
 美しいメロディに美しい歌詞がついた素敵な曲です。
 少しキリスト教っぽい香りがしますが、力強くていい曲だと思います。
 歌詞を噛み締めながら聞いてみましょう');
-INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment) VALUES('Once upon a dream',1,'EN',
+INSERT INTO script (stitle, upid, fsp, jsp, video, comment) VALUES('Once upon a dream',1,
 'I know you, <br>
 I walked with you once upon a dream<br>
 I know you, <br>
@@ -118,7 +118,7 @@ The way you did once upon a dream<br>',
 ストーカーっぽくて怖いですねぇ。<br>
 兎も角、恋する乙女の心をぎゅっと凝縮した宝石みたいな一曲です<br>');
 
-INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment) VALUES('魔法使いのショコラティエ - Le chocolatier enchanté -',2,'FR',
+INSERT INTO script (stitle, upid, fsp, jsp, video, comment) VALUES('魔法使いのショコラティエ - Le chocolatier enchanté -',2,
 'Je me souviens , quand j’étais toute petite<br>
 Il y avait plein d’boites dans la vitrine<br>
 Et un p ‘tit chocolatier<br>
@@ -216,7 +216,7 @@ Un chocolat enchanté<br>
 
 
 
-INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment) VALUES('Tomorrow',3,'EN',
+INSERT INTO script (stitle, upid, fsp, jsp, video, comment) VALUES('Tomorrow',3,
 '<p>The sun’ll come out tomorrow<br>
 Bet your bottom dollar that tomorrow<br>
 There’ll be sun<br>

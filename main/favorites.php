@@ -55,13 +55,12 @@ if(! $db = new PDO("sqlite:../phrase.db")){
 
 $sql = "SELECT s.sid, s.stitle, s.fsp, s.jsp, s.video, s.comment  FROM fav f, script s WHERE s.sid=f.sid and f.uid ='$id'";
 $stmt = $db->prepare($sql);
-$flag = $stmt -> execute();
+$stmt -> execute();
 
-if($flag){
    while($cols = $stmt->fetch(PDO::FETCH_NUM)){
        if($cols[4]){
            print "<iframe width='560' height='315' src='https://www.youtube.com/embed/$cols[4]' frameborder=0 allowfullscreen></iframe><br><br>";
-   }
+       }
        print "<table border=1>\n";
        print "<tr><font size=5 color='#007b71'>$cols[1]</font><tr>";       
        print "<th>Original</th>";
@@ -72,11 +71,9 @@ if($flag){
        print "<td>$cols[2]</td><td>$cols[3]</td>\n";
        print "</tr>\n";
        print "</table><br>\n";
-   }
- 
-}else{
-    print "お気に入り登録してください\n";
-}
+     
+   } print "お気に入り登録しよう！(:3";
+
 ?>
 
 </div>

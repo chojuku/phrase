@@ -82,11 +82,9 @@ if($mode == "allf" || $mode == "allj") {
     $sql = "SELECT id, fword, jword FROM card WHERE uid = '$id' ORDER BY RANDOM() LIMIT 10";
 } else if($mode == "lessf" || $mode == "lessj") {
     $sql = "SELECT id, fword, jword FROM card c WHERE uid = '$id' ORDER BY suc <= fail  LIMIT 10";
-} else if($mode == "both"|| $mode == "fword" || $mode == "jword") {
+} else if($mode == "both"|| $mode == "fword" || $mode == "jword"|| $mode == "download") {
     $sql = "SELECT id, fword, jword, other, suc, fail FROM card WHERE uid = '$id'"; 
-} else if($mode == "download") {
-    // $sql = "";
-}
+} 
 $stmt = $db -> prepare($sql);
 $stmt -> execute();
 
@@ -166,6 +164,15 @@ if($mode == "both" || $mode == "fword" || $mode == "jword") {
     print "</table>\n";
   print "<input type='button' onclick='submit()' name='check' value='check'>";
             print "</form>";
+}else if($mode == "download"){
+    $fname = "../../yuritan.csv";
+    touch($fname);
+    $fp = fopen($fname, "a");
+    while($cols = $stmt->fetch(PDO::FETCH_NUM)){
+        $line = "$cols[0], $cols[1], $cols[2], $cols[3]\n";
+        fputs($fp, "$line");
+    }
+    fclose($fp);
 }else{
     print "登録された単語のテストや一覧が見れます。<br>";
     print "TestModeを選択してください。\n";

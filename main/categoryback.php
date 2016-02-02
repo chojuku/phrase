@@ -59,33 +59,34 @@ $stmt = $db->prepare($spsql);
 $stmt -> execute();
 
 $cols = $stmt->fetch(PDO::FETCH_NUM);
-print "選択されたやつ:$cname";
+print "選択されたカテゴリ:$cname";
 
    $sql=<<<EOM
-     SELECT s.sid, s.stitle, s.jsp, c.cname
+     SELECT s.sid, s.stitle, s.fsp, s.jsp,s.comment, s.video
      FROM script s, category c
      WHERE s.sid = c.sid
-       and c.cid = '$cid';
+       and c.cname = '$cname';
 EOM;
 
    $stmt = $db -> prepare($sql);
    $stmt -> execute();
 
-   print "<table border=1>\n";
-   print "<tr>";
-   print "<th>学籍番号</th>";
-   print "<th>学科</th>";
-   print "<th>氏名</th>";
-   print "<th>成績</th>";
    print "<tr>";
    while($cols = $stmt->fetch(PDO::FETCH_NUM)){
-     print "<tr>\n";
-     print "<td>$cols[0]</td><td>$cols[1]</td><td>$cols[2]</td><td>$cols[3]</td>\n";
-     print "</tr>\n";
+     if($cols[5]){
+           print "<iframe width='560' height='315' src='https://www.youtube.com/embed/$cols[5]' frameborder=0 allowfullscreen></iframe><br><br>";
+       }
+       print "<table border=1>\n";
+       print "<tr><font size=5 color='#007b71'>$cols[1]</font></tr>";       
+       print "<th>Original</th>";
+       print "<th>Japanese</th>";
+       print "<tr>\n";
+       print "<td>$cols[2]</td><td>$cols[3]</td>";
+       print "</tr>";
+       print "</table>";
+       print "<table border=1><th>Comment</th><tr><td>$cols[4]</td></tr></table>\n";
    }
-   print "</table>\n";
- }
- else{
+}else{
    print "授業名を選択してください。\n";
  }
 
