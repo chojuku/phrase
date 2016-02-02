@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 'Off');
 if(!$db = new PDO("sqlite:../phrase.db")){
     header("HTTP/1.1 301 Moved Permanently");
     header("Location: home.php?err=0");      
@@ -14,7 +15,6 @@ if(!$_POST['fword'] ||!$_POST['jword']){
     $sid = $_POST['sid'];
     $uid = $_POST['uid'];
     $other = mb_convert_encoding($_POST['other'], "UTF-8", "auto");
-    print "$sid";
     if($sid && $other){
     $sql = "INSERT INTO card (fword, jword, other, suc, fail, sid, uid) VALUES ('$fword','$jword', '$other', 0, 0, $sid, $uid);"; 
     } else if ($sid) {

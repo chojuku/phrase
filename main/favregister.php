@@ -6,14 +6,14 @@ if(!$db = new PDO("sqlite:../phrase.db")){
     exit;
 }
 $sid =  mb_convert_encoding($_POST['sid'], "UTF-8", "auto");
-$uname = mb_convert_encoding($_POST['uname'], "UTF-8", "auto");
+$uid = mb_convert_encoding($_POST['uid'], "UTF-8", "auto");
 $fav = $_POST['fav'];
 
 if($fav == 'up'){
-    $sql = "INSERT INTO user(uname, fav) VALUES('$uname', $sid)";
+    $sql = "INSERT INTO fav(uid, sid) VALUES('$uid', $sid)";
 }
 else if($fav == 'down'){
-    $sql = "UPDATE user SET fav=0 WHERE uname='$uname' and fav=$sid";
+    $sql = "DELETE FROM fav WHERE sid = $sid and uid = $uid";
 }
     $stmt = $db -> prepare($sql);
     $flag = $stmt -> execute();

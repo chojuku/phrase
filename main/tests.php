@@ -83,7 +83,7 @@ if($mode == "allf" || $mode == "allj") {
 } else if($mode == "lessf" || $mode == "lessj") {
     $sql = "SELECT id, fword, jword FROM card c WHERE uid = '$id' ORDER BY suc <= fail  LIMIT 10";
 } else if($mode == "both"|| $mode == "fword" || $mode == "jword") {
-    $sql = "SELECT id, fword, jword, other, suc, fail, sid FROM card WHERE uid = '$id'"; 
+    $sql = "SELECT id, fword, jword, other, suc, fail FROM card WHERE uid = '$id'"; 
 } else if($mode == "download") {
     // $sql = "";
 }
@@ -101,7 +101,6 @@ if($mode == "both" || $mode == "fword" || $mode == "jword") {
     }
     print "<th>Comments</th>";
     print "<th>rate</th>";
-    print "<th>script</th>";
     print "<tr>";
     while($cols = $stmt->fetch(PDO::FETCH_NUM)){
         print "<tr>\n";
@@ -113,7 +112,6 @@ if($mode == "both" || $mode == "fword" || $mode == "jword") {
         }
         print "<td>$cols[3]</td>";
         print "<td>$cols[4] / $cols[5]</td>";
-        print "<td>$col[6]</td>\n";
         print "</tr>\n";
     }
     print "</table>\n";
@@ -169,6 +167,7 @@ if($mode == "both" || $mode == "fword" || $mode == "jword") {
   print "<input type='button' onclick='submit()' name='check' value='check'>";
             print "</form>";
 }else{
+    print "登録された単語のテストや一覧が見れます。<br>";
     print "TestModeを選択してください。\n";
 }
 ?>

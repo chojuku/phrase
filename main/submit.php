@@ -55,7 +55,7 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
       Title:<input type="text" name="title" size="40" ><br>
       Original Sentence <textarea name="fsp" rows="4" cols="80"></textarea><br>
       Translated Sentence<textarea name="jsp" rows="4" cols="80"></textarea><br>
-      LangId:<input type="text" name="langid" size="12" >
+      Category:<input type="text" name="langid" size="12" >
       Youtube ID<input type="text" name="video" size="20" ><br>
       Comment<textarea name="comment" rows="4" cols="80"></textarea>
       <input type="button" onclick="submit()"  value="投稿">

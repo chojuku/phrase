@@ -40,7 +40,6 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
     $titlestmt -> execute();
     
     $cols = $stmt->fetch(PDO::FETCH_NUM);
-    $uname = $cols[0];
     print "<div class=name>You're <font size=5 color=#ec6604> $cols[0] </font> <a href=logout.php>ログアウト</a>";
 if($_GET['err']){
     $errno=$_GET['err'];
@@ -100,7 +99,8 @@ while($cols = $stmt->fetch(PDO::FETCH_NUM)){
    print "<iframe width='560' height='315' src='https://www.youtube.com/embed/$col[3]' frameborder=0 allowfullscreen></iframe><br><br>";
    }
 
-   $sql= "SELECT fav FROM user WHERE uname='$uname' and fav='$sid'";
+
+   $sql = "SELECT sid FROM fav WHERE uid='$id' and sid='$sid'";
    $stmt3 = $db -> prepare($sql);
    $stmt3 -> execute();
    $col3 = $stmt3->fetch(PDO::FETCH_NUM);
@@ -108,7 +108,7 @@ while($cols = $stmt->fetch(PDO::FETCH_NUM)){
    print "<font size=5 color='#007b71'>$col[2]</font>";
    print "<form action='favregister.php' method='post'>";
    print "<input type='hidden' name='sid' value='$sid'></input>";
-   print "<input type='hidden' name='uname' value='$uname'></input>";
+   print "<input type='hidden' name='uid' value='$id'></input>";
    if($col3[0]){
    print "<input type='image' src='../images/heart.png' name='fav' value='down' align='right'> ";
    }else{

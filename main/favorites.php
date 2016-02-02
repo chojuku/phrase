@@ -34,14 +34,8 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
     if(! $flag){ 
         print "<div id=warning>問合せ失敗…</div>";
     }
-  // titleの取得
-  $titlesql = "SELECT sid,stitle FROM script";
-  $titlestmt = $db->prepare($titlesql);
-  $titlestmt -> execute();
-
     $cols = $stmt->fetch(PDO::FETCH_NUM);
-    print "<div class=name>You're <font size=5 color=#ec6604> $cols[0] </font> <a href=logout.php>ログアウト</a></div>";
-
+    print "<div class=name>You're <font size=5 color=#ec6604> $cols[0] </font> <a href=logout.php>ログアウト</a></div>";    
 }
 ?>
 
@@ -59,56 +53,30 @@ if(! $db = new PDO("sqlite:../phrase.db")){
   die("DB Connection Failed.");
 }
 
-$sql = "SELECT sid,stitle FROM script ";
+$sql = "SELECT s.sid, s.stitle, s.fsp, s.jsp, s.video, s.comment  FROM fav f, script s WHERE s.sid=f.sid and f.uid ='$id'";
 $stmt = $db->prepare($sql);
-$stmt -> execute();
-?>
+$flag = $stmt -> execute();
 
-<form action="home.php" method="post">
-    <select name="title">title: 
-<?php
-while($cols = $stmt->fetch(PDO::FETCH_NUM)){
-  print "<option value=$cols[0]>$cols[1]";
-}
-?>
- </select>
-<input type="submit" value="選択">
-</form>
-
-<?php
- $sid=$_POST['title'];
- if($sid){
-   $sql = "SELECT sid,jsp,stitle FROM script WHERE sid = '$sid'";
-   $stmt = $db -> prepare($sql);
-   $stmt -> execute();
-   $col = $stmt->fetch(PDO::FETCH_NUM);
-   print "<font  color='#007b71'>title：$col[2]</font>";
-
-   $sql=<<<EOM
-     SELECT s.fsp, s.jsp
-     FROM  script s
-     WHERE s.sid = '$sid'
-EOM;
-
-   $stmt = $db -> prepare($sql);
-   $stmt -> execute();
-
-   print "<table border=1>\n";
-   print "<tr>";
-   print "<th>Original</th>";
-   print "<th>Japanese</th>";
-
-   print "<tr>";
+if($flag){
    while($cols = $stmt->fetch(PDO::FETCH_NUM)){
-     print "<tr>\n";
-     print "<td>$cols[0]</td><td>$cols[1]</td>\n";
-     print "</tr>\n";
+       if($cols[4]){
+           print "<iframe width='560' height='315' src='https://www.youtube.com/embed/$cols[4]' frameborder=0 allowfullscreen></iframe><br><br>";
    }
-   print "</table>\n";
- }
- else{
-   print "titleを選択してください。\n";
- }
+       print "<table border=1>\n";
+       print "<tr><font size=5 color='#007b71'>$cols[1]</font><tr>";       
+       print "<th>Original</th>";
+       print "<th>Japanese</th>";
+       
+       print "<tr>";
+       print "<tr>\n";
+       print "<td>$cols[2]</td><td>$cols[3]</td>\n";
+       print "</tr>\n";
+       print "</table><br>\n";
+   }
+ 
+}else{
+    print "お気に入り登録してください\n";
+}
 ?>
 
 </div>

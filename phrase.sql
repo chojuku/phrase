@@ -1,11 +1,12 @@
-CREATE TABLE user (uid integer PRIMARY KEY, uname text NOT NULL, password text, fav integer);
+CREATE TABLE user (uid integer PRIMARY KEY, uname text NOT NULL, password text);
+CREATE TABLE fav (fid integer PRIMARY KEY, uid integer NOT NULL, sid integer NOT NULL);
 CREATE TABLE script (sid integer PRIMARY KEY UNIQUE, stitle text, upid integer, langid text, fsp text, jsp text, video text, comment text);
 CREATE TABLE category (cid integer PRIMARY KEY, cname text, sid integer);
-CREATE TABLE test (tid integer PRIMARY KEY UNIQUE, test text, ans text, rate integer);
 CREATE TABLE card (id integer PRIMARY KEY UNIQUE, fword text, jword text, other text, suc integer, fail integer, sid integer, uid integer);
 
+INSERT INTO fav (uid, sid) VALUES(1,1);
 INSERT INTO user(uname,password)VALUES ('yuri','3ca26628562eaacf005e80e2f6a33a237c12281b');
-INSERT INTO user(uname,password,fav)VALUES ('nyan','naynnyan',2);
+INSERT INTO user(uname,password)VALUES ('nyan','naynnyan');
 INSERT INTO script (sid, stitle) VALUES(0,'select title');
 INSERT INTO script (stitle, upid, langid, fsp, jsp, video, comment) VALUES('When You Wish Upon a Star',1,'EN',
 'When you wish upon a star<br>
