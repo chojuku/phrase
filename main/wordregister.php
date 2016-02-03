@@ -12,7 +12,7 @@ if(!$_POST['fword'] ||!$_POST['jword']){
 } else {
     $fword = mb_convert_encoding($_POST['fword'], "UTF-8", "auto");
     $jword = mb_convert_encoding($_POST['jword'], "UTF-8", "auto");
-    $sid = $_POST['sid'];
+    $sid = mb_convert_encoding($_POST['sid'], "UTF-8", "auto");
     $uid = $_POST['uid'];
     $other = mb_convert_encoding($_POST['other'], "UTF-8", "auto");
     if($sid && $other){
@@ -32,7 +32,7 @@ if(!$_POST['fword'] ||!$_POST['jword']){
          exit;      
      }else{
          header("HTTP/1.1 301 Moved Permanently");
-         header("Location: home.php?pass=1");
+         header("Location: home.php?title=$sid");
          exit;   
      }
 }

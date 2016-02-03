@@ -167,7 +167,7 @@ if($mode == "both" || $mode == "fword" || $mode == "jword") {
 }else if($mode == "download"){
     $fname = "../tango.csv";
     touch($fname);
-    $fp = fopen($fname, "a");
+    $fp = fopen($fname, "w+");
     while($cols = $stmt->fetch(PDO::FETCH_NUM)){
         $line = "$cols[0], $cols[1], $cols[2], $cols[3]\n";
         fputs($fp, "$line");
