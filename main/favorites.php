@@ -6,7 +6,7 @@ date_default_timezone_set('Asia/Tokyo');
 <head>
 <meta http-equiv="Content-Type" 
     content="text/html; charset=utf8">       
-    <title>Chojuku</title>
+    <title>Phrase</title>
     <link rel="stylesheet" type="text/css" href="basic.css">
 </head>
 <body
