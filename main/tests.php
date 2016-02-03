@@ -165,7 +165,7 @@ if($mode == "both" || $mode == "fword" || $mode == "jword") {
   print "<input type='button' onclick='submit()' name='check' value='check'>";
             print "</form>";
 }else if($mode == "download"){
-    $fname = "../../yuritan.csv";
+    $fname = "../tango.csv";
     touch($fname);
     $fp = fopen($fname, "a");
     while($cols = $stmt->fetch(PDO::FETCH_NUM)){
@@ -173,6 +173,7 @@ if($mode == "both" || $mode == "fword" || $mode == "jword") {
         fputs($fp, "$line");
     }
     fclose($fp);
+    print "<a href='../tango.csv' download>ダウンロード</a>";
 }else{
     print "登録された単語のテストや一覧が見れます。<br>";
     print "TestModeを選択してください。\n";
