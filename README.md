@@ -8,9 +8,9 @@
 # How to Use
 ## Prepare 
 If you're Mac user, please see http://qiita.com/satomin/items/3ab4c2d863a55ca72d35  
-And change permission like this.
-    chmod 777 phrase.db  
-    chmod 777 phrase/  
+And change permission like this.  
+`chmod 777 phrase.db`  
+`chmod 777 phrase/`  
 
 # Slide  
 https://docs.google.com/presentation/d/1eQHKxLIPyGYPJyi-TKYpmU-vsVfXl4MvaERJyXsKXME/edit?usp=sharing  
