@@ -9,16 +9,17 @@ if(!$db = new PDO("sqlite:../phrase.db")){
 }
 if(!$_POST['title'] ||!$_POST['fsp'] || !$_POST['jsp']){
     header("HTTP/1.1 301 Moved Permanently");
-    header("Location: submit.php?err=1");//“ü—Í‘«‚è‚È‚¢      exit;
+    header("Location: submit.php?err=1");//“ü—Í‘«‚è‚È‚¢     
+    exit;
 } else{
     $title = mb_convert_encoding($_POST['title'], "UTF-8", "auto");
     $category = mb_convert_encoding($_POST['category'], "UTF-8", "auto");
-    $fsp =    nl2br(mb_convert_encoding(sqlite_escape_string($_POST['fsp']), "UTF-8", "auto"));
+    $fsp =    nl2br(mb_convert_encoding(($_POST['fsp']), "UTF-8", "auto"));
     $jsp = 	nl2br(mb_convert_encoding($_POST['jsp'], "UTF-8", "auto"));
     $video = mb_convert_encoding($_POST['video'], "UTF-8", "auto");
     $comment = 	nl2br(mb_convert_encoding($_POST['comment'], "UTF-8", "auto"));
     $id = $_POST['id'];
-    print "$fsp";
+    // print "$fsp";
     /* $sql = "SELECT count(*) FROM script WHERE stitle = '$title';"; //Šù‚É“o˜^‚³‚ê‚Ä‚¢‚é‚©Šm”F‚·‚é
     $stmt = $db -> prepare($sql);
     $flag = $stmt -> execute();
