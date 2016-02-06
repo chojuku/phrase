@@ -2,7 +2,7 @@
 ini_set('display_errors', 'Off');
 session_start();
 
-// 既にログインしている
+// 既にログインしているかどうかの確認
 if(isset($_SESSION["S_USERID"])) {
     header("HTTP/1.1 301 Moved Permanently");
     header("Location: home.php");
@@ -41,7 +41,7 @@ if(isset($_SESSION["S_USERID"])) {
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Phrases</title>
-<link rel="stylesheet" type="text/css" href="index.css">
+<link rel="stylesheet" type="text/css" href="basic.css">
 </head>
 <body
    <div id="bg1">

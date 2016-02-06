@@ -14,7 +14,7 @@ date_default_timezone_set('Asia/Tokyo');
 	  data-2000="background-position:800px -1000px;"
 	  data-0="background-position:0px 0px;">
      </div>
-     <h1>Phrases of Word & Japanese</h1>
+     <h2>Phrases of Word & Japanese</h2>
      
 <?php
     session_start();

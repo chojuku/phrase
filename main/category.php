@@ -1,6 +1,5 @@
 <?php
 ini_set('display_errors', 'Off');
-date_default_timezone_set('Asia/Tokyo');
 ?>
 <html>
 <head>
@@ -14,9 +13,10 @@ date_default_timezone_set('Asia/Tokyo');
     data-2000="background-position:800px -1000px;"
     data-0="background-position:0px 0px;">
     </div>
-    <h1>Phrases of Word & Japanese</h1>
+    <h2>Phrases of Word & Japanese</h2>
   
 <?php
+// user login情報の取得
     session_start();
 if($_SESSION["S_USERID"]){     
     $id = $_SESSION["S_USERID"];
@@ -36,9 +36,9 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
     }
     $cols = $stmt->fetch(PDO::FETCH_NUM);
     print "<div class=name>You're <font size=5 color=#ec6604> $cols[0] </font> <a href=logout.php>ログアウト</a></div>";
-
 }
 ?>
+
 <div id="tab">
       <a href="home.php">Phrases</a>
       <a href="tests.php">Tests</a>
@@ -47,16 +47,15 @@ if(! $db = new PDO("sqlite:../phrase.db")) {
       <a href="submit.php">Submit</a>
     </div>
   <div id="main">
-<?php
 
+<?php
 if(! $db = new PDO("sqlite:../phrase.db")){
   die("DB Connection Failed.");
 }
-
+// カテゴリ名の取得
 $sql = "SELECT cname FROM category GROUP BY cname";
 $stmt = $db->prepare($sql);
 $stmt -> execute();
-
 
 print "<table>\n";
 while($cols = $stmt->fetch(PDO::FETCH_NUM)){
